@@ -53,9 +53,11 @@
                 })
                     .then(response => response.json())
                     .then(json => {
-                            this.message = "data update successfully"
+                            this.message = "data update successfully";
                         }
+
                     )
+                window.location.reload()
             },
         }
     })

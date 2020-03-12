@@ -17,11 +17,16 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 Route::get('/create/country', 'CountryController@create');
-Route::post('/country', 'CountryController@index');
+Route::get('/country', 'CountryController@index');
 
+
+
+Route::get('/get_location', 'CountryController@getLocation');
 Route::get('/getLocation', 'CountryController@getLocationInfo');
 
-Route::post('/convert', 'CountryController@convertTime');
+Route::get('/convert_timezone', 'CountryController@convertTimezone');
+Route::get('/convert', 'CountryController@convertTime');
+
 Route::get('/show/{country}', 'CountryController@show');
 Route::post('/store', 'CountryController@store');
 Route::put('/country/update/{country}', 'CountryController@update');

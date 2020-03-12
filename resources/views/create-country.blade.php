@@ -21,6 +21,9 @@
         <div class="form-group">
             <label for="email">Country Name:</label>
             <input type="text" class="form-control" placeholder="Enter your last name" v-model="country.country_name">
+            <br>
+            <br>
+            @{{country.iso}}
         </div>
         <button type="button" class="btn btn-default" @click="storeData">Submit</button>
         <a href="{{route('country.list')}}" class="btn btn-primary" role="button">Country List</a>
@@ -52,7 +55,8 @@
                 })
                     .then(response => response.json())
                     .then(json => {
-                            this.message = "data store successfully"
+                            this.message = "data store successfully";
+                        window.location.reload();
                         }
                     )
             },

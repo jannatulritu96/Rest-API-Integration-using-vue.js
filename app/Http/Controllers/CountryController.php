@@ -17,13 +17,13 @@ class CountryController extends Controller
      */
     public function index(Request $request)
     {
-        $country = Country::where('country_name', 'LIKE', '%' . $request->search . '%');
-        if ($request->pagination) {
-            $data = $country->paginate(10);
-        } else {
-            $data = $country->paginate(10);
-        }
-        return response()->json(['status' => 'success', 'data' => $data]);
+        $country = Country::where('country_name', 'LIKE', '%' . $request->search . '%')->paginate(10);
+//        if ($request->pagination) {
+//            $data = $country->paginate(10);
+//        } else {
+//            $data = $country->paginate(10);
+//        }
+        return response()->json(['status' => 'success', 'data' => $country]);
     }
 
     /**
@@ -147,6 +147,14 @@ class CountryController extends Controller
 
     public function countryList(){
         return view('country-list');
+    }
+
+    public function getLocation(){
+        return view('location');
+    }
+
+    public function convertTimezone(){
+        return view('time_convert');
     }
 
     public function vueTable(){

@@ -22,4 +22,5 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 
 Route::get('/country/list', 'CountryController@countryList')->name('country.list');
+
 Route::get('/update/country/{country}', 'CountryController@updateCountry')->name('update.country');

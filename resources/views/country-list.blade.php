@@ -19,23 +19,32 @@
 <div class="container" id="example">
     <h1 class="text-center">Country List : </h1>
     <hr>
-    <div class="col-sm-12">
+    <div class="col-md-12">
         <div class="row">
-            <div class="col-sm-8">
-                <form action="/action_page.php">
-                    <div class="col-sm-7">
+            <div class="col-md-6">
+                <form>
+                    <div class="col-sm-10">
                         <div class="form-group">
                             <input type="text" class="form-control" placeholder="search country name" v-model="search" @keyup="searchData">
+                            <br>
+                            <br>
+                            @{{search}}
                         </div>
                     </div>
-                   <!-- <div class="col-sm-1">
-                       <button type="button" class="btn btn-primary" @click="searchData">Search</button>
-                   </div> -->
+                    <div class="col-sm-2">
+                        <a :href="'/api/get_location'" class="btn btn-primary">Get Location</a>
+                    </div>
                 </form>
             </div>
-            <div class="col-sm-4 text-right">
-                <a :href="'/api/create/country'" class="btn btn-primary">Add New</a>
+            <div class="col-sm-6">
+                <div class="col-sm-4">
+                    <a :href="'/api/convert_timezone'" class="btn btn-primary">Convert timezone</a>
+                </div>
+                <div class="col-sm-2">
+                    <a :href="'/api/create/country'" class="btn btn-primary">Add New</a>
+                </div>
             </div>
+
         </div>
     </div>
     <br>
@@ -90,8 +99,8 @@
 
             showData() {
                 fetch('/api/country', {
-                    method: 'POST',
-                    body: JSON.stringify(this.country),
+                    method: 'GET',
+                    // body: JSON.stringify(this.country),
                     headers: {
                         "Content-type": "application/json; charset=UTF-8"
                     }
@@ -103,23 +112,24 @@
                     })
             },
             searchData() {
+                console.log('abc')
                 fetch('/api/country?search='+this.search, {
-                    method: 'POST',
-                    body: JSON.stringify(this.country),
+                    method: 'GET',
+                    // body: JSON.stringify(this.country),
                     headers: {
                         "Content-type": "application/json; charset=UTF-8"
                     }
                 })
                     .then(response => response.json())
                     .then(res => {
-                        // console.log(res.data)
+
                         this.country = res.data;
                     })
             },
             paginationNext() {
                 fetch('/api/country?page=' + (this.country.current_page + 1), {
-                    method: 'POST',
-                    body: JSON.stringify(this.country),
+                    method: 'GET',
+                    // body: JSON.stringify(this.country),
                     headers: {
                         "Content-type": "application/json; charset=UTF-8"
                     }
@@ -131,9 +141,10 @@
                     })
             },
             paginationCurrent(value) {
-                fetch('/api/country?page=' + value, {
-                    method: 'POST',
-                    body: JSON.stringify(this.country),
+                // console.log('/api/country?page=' + value + '&search=' + this.search)
+                fetch('/api/country?page=' + value + '&search=' + this.search, {
+                    method: 'GET',
+                    // body: JSON.stringify(this.country),
                     headers: {
                         "Content-type": "application/json; charset=UTF-8"
                     }
@@ -146,8 +157,8 @@
             },
             paginationPrev() {
                 fetch('/api/country?page=' + (this.country.current_page - 1), {
-                    method: 'POST',
-                    body: JSON.stringify(this.country),
+                    method: 'GET',
+                    // body: JSON.stringify(this.country),
                     headers: {
                         "Content-type": "application/json; charset=UTF-8"
                     }
@@ -162,8 +173,9 @@
             deleteCountry(id) {
                 fetch('/api/country/delete/' + id, {
                     method: 'DELETE'
-                
+
                 })
+                window.location.reload()
             },
         }
     });
